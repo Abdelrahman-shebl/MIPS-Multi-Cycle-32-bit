@@ -1,0 +1,22 @@
+module Instr_Data_Mem (
+	
+	input clk,
+	input [31:0] A,
+	input WE,
+	input [31:0] WD,
+	output [31:0] RD
+
+);
+reg [31:0] mem [63:0];
+
+initial
+	$readmemh("mem.txt",mem);
+
+always @ (posedge clk)
+
+		if (WE)
+		mem [A[31:2]] <= WD;
+
+
+assign RD =mem[A[31:2]];
+endmodule

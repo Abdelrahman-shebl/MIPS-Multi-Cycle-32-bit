@@ -1,0 +1,80 @@
+20020005  // ADDI $v0, $zero, 5  --> $v0 = 5
+          // Add immediate: Loads the immediate value 5 into $v0.
+          // Example: $v0 = 5.
+
+2003000c  // ADDI $v1, $zero, 12  --> $v1 = 12
+          // Add immediate: Loads the immediate value 12 into $v1.
+          // Example: $v1 = 12.
+
+2067fff7  // ADDI $a3, $v1, -9  --> $a3 = $v1 + (-9) = 12 - 9 = 3
+          // Add immediate: Adds -9 to the value in $v1 and stores the result in $a3.
+          // Example: $a3 = 3.
+
+00e22025  // OR $a0, $a3, $v0  --> $a0 = $a3 | $v0 = 3 | 5 = 7
+          // OR: Bitwise OR of $a3 and $v0, store the result in $a0.
+          // Example: $a0 = 7.
+
+00642824  // AND $a1, $v1, $a0  --> $a1 = $v1 & $a0 = 12 & 7 = 4
+          // AND: Bitwise AND of $v1 and $a0, store the result in $a1.
+          // Example: $a1 = 4.
+
+00a42820  // ADD $a1, $a1, $a0  --> $a1 = $a1 + $a0 = 4 + 7 = 11
+          // Add: Adds $a1 and $a0, store the result in $a1.
+          // Example: $a1 = 11.
+
+10e5000a  // BEQ $a1, $a3, 10  --> if ($a1 == $a3) then branch to PC + 10 * 4
+          // Branch if equal: If $a1 equals $a3, branch forward by 40 bytes.
+          // Example: Since $a1 = 11 and $a3 = 3, no branch is taken.
+
+0064202a  // SLT $a0, $v1, $a0  --> $a0 = ($v1 < $a0) ? 1 : 0 = (12 < 7) ? 0 : 0
+          // Set less than: Sets $a0 to 1 if $v1 < $a0, otherwise 0.
+          // Example: $a0 = 0.
+
+10040001  // BEQ $a0, $zero, 1  --> if ($a0 == 0) then branch to PC + 4
+          // Branch if equal: If $a0 equals zero, branch forward by 4 bytes.
+          // Example: Since $a0 = 0, the branch is taken.
+
+//skip this instruction since the branch is taken
+20050000  // ADDI $a1, $zero, 0  --> $a1 = 0
+          // Add immediate: Loads the immediate value 0 into $a1.
+          // Example: $a1 = 0.
+
+00e2202a  // SLT $a0, $a3, $v0  --> $a0 = ($a3 < $v0) ? 1 : 0 = (3 < 5) ? 1 : 0
+          // Set less than: Sets $a0 to 1 if $a3 < $v0, otherwise 0.
+          // Example: $a0 = 1.
+
+00853820  // ADD $a3, $a0, $a1  --> $a3 = $a0 + $a1 = 1 + 11 = 12
+          // Add: Adds $a0 and $a1, store the result in $a3.
+          // Example: $a3 = 12.
+
+00e23822  // SUB $a3, $a3, $v0  --> $a3 = $a3 - $v0 = 12 - 5 = 7
+          // Subtract: Subtracts $v0 from $a3, store the result in $a3.
+          // Example: $a3 = 7.
+
+ac670044  // SW $a3, 68($v1)  --> MEM[$v1 + 68] = $a3
+          // Store word: Stores the value in $a3 into memory at the address ($v1 + 68).
+          // Example: If $v1 = 12, MEM[80] = 7.
+
+8c020050  // LW $v0, 80($zero)  --> $v0 = MEM[80]
+          // Load word: Loads the word from memory at the address (80) and stores it in $v0.
+          // Example: If MEM[80] = 7, then $v0 = 7.
+
+08000011  // J 0x11  --> PC = 0x44
+          // Jump: Unconditionally jumps to address 0x44 (decimal 68).
+
+//skip this instruction since Unconditional jump
+20020001  // ADDI $v0, $zero, 1  --> $v0 = 1
+          // Add immediate: Loads the immediate value 1 into $v0.
+          // Example: $v0 = 1.
+
+ac020054  // SW $v0, 84($zero)  --> MEM[84] = $v0
+          // Store word: Stores the value in $v0 into memory at the address (84).
+          // Example: MEM[84] = 7.
+
+8c020054  // LW $v0, 84($zero)  --> $v0 = MEM[84]
+          // Load word: Loads the word from memory at the address (84) and stores it in $v0.
+          // Example: $v0 = 7.
+
+ac020000  // SW $v0, 0($zero)  --> MEM[0] = $v0
+          // Store word: Stores the value in $v0 into memory at the address (0).
+          // Example: MEM[0] = 7.
